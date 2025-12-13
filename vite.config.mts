@@ -151,12 +151,18 @@ export default defineConfig({
   root: "src",
   server: { port: 3000 },
   cacheDir: ".vite",
+  worker: {
+    format: "es",
+    plugins: () => [react()],
+  },
   plugins: [
     svgr(),
     react({
       babel: {
         cacheDirectory: ".babel-cache",
         cacheCompression: false,
+        compact: false,
+        minified: false,
       },
     }),
     legacy({
@@ -184,6 +190,10 @@ export default defineConfig({
     modulePreload: {
       polyfill: false,
     },
+    commonjsOptions: {
+      include: [/node_modules/],
+      transformMixedEsModules: true,
+    },
     terserOptions: {
       compress: {
         drop_console: false,
@@ -197,6 +207,7 @@ export default defineConfig({
       },
     },
     rollupOptions: {
+      maxParallelFileOps: 2,
       treeshake: {
         preset: "recommended",
         moduleSideEffects: (id) => !id.endsWith(".css"),
