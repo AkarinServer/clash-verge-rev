@@ -181,7 +181,7 @@ export default defineConfig({
   build: {
     outDir: "../dist",
     emptyOutDir: true,
-    minify: "terser",
+    minify: "esbuild", // 改用 esbuild，在 riscv64 上更稳定，避免 terser 段错误
     chunkSizeWarningLimit: 4500,
     reportCompressedSize: false,
     sourcemap: false,
@@ -196,18 +196,7 @@ export default defineConfig({
       include: [/node_modules/],
       transformMixedEsModules: true,
     },
-    terserOptions: {
-      compress: {
-        drop_console: false,
-        drop_debugger: true,
-        pure_funcs: ["console.debug", "console.trace"],
-        dead_code: true,
-        unused: true,
-      },
-      mangle: {
-        safari10: true,
-      },
-    },
+    // terserOptions 已移除，改用 esbuild 压缩（更轻量，在 riscv64 上更稳定）
     rollupOptions: {
       maxParallelFileOps: 1,
       treeshake: {
