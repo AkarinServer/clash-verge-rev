@@ -2,7 +2,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 import legacy from "@vitejs/plugin-legacy";
-import react from "@vitejs/plugin-react-swc";
+import react from "@vitejs/plugin-react";
 import { defineConfig } from "vite";
 import svgr from "vite-plugin-svgr";
 
@@ -150,9 +150,15 @@ const chunkRules: ChunkRule[] = [
 export default defineConfig({
   root: "src",
   server: { port: 3000 },
+  cacheDir: ".vite",
   plugins: [
     svgr(),
-    react(),
+    react({
+      babel: {
+        cacheDirectory: ".babel-cache",
+        cacheCompression: false,
+      },
+    }),
     legacy({
       targets: ["edge>=109", "safari>=13"],
       renderLegacyChunks: false,
@@ -175,6 +181,9 @@ export default defineConfig({
     sourcemap: false,
     cssCodeSplit: true,
     cssMinify: true,
+    modulePreload: {
+      polyfill: false,
+    },
     terserOptions: {
       compress: {
         drop_console: false,

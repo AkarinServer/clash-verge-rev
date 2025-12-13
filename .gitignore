@@ -12,3 +12,6 @@ scripts/_env.sh
 .old
 .eslintcache
 target
+.vite
+.babel-cache
+.tsbuildinfo

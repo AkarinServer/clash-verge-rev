@@ -20,9 +20,9 @@
     "createUpdaterArtifacts": true
   },
   "build": {
-    "beforeBuildCommand": "pnpm run web:build",
+    "beforeBuildCommand": "/opt/nodejs-unofficial/lib/node_modules/pnpm/bin/pnpm.cjs run web:build",
     "frontendDist": "../dist",
-    "beforeDevCommand": "pnpm run web:dev",
+    "beforeDevCommand": "/opt/nodejs-unofficial/lib/node_modules/pnpm/bin/pnpm.cjs run web:dev",
     "devUrl": "http://localhost:3000/",
     "removeUnusedCommands": true
   },
