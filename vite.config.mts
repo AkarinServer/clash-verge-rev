@@ -190,6 +190,8 @@ export default defineConfig({
     modulePreload: {
       polyfill: false,
     },
+    target: "esnext",
+    assetsInlineLimit: 4096,
     commonjsOptions: {
       include: [/node_modules/],
       transformMixedEsModules: true,
@@ -207,11 +209,12 @@ export default defineConfig({
       },
     },
     rollupOptions: {
-      maxParallelFileOps: 2,
+      maxParallelFileOps: 1,
       treeshake: {
-        preset: "recommended",
+        preset: "smallest",
         moduleSideEffects: (id) => !id.endsWith(".css"),
         tryCatchDeoptimization: false,
+        propertyReadSideEffects: false,
       },
       output: {
         compact: true,
